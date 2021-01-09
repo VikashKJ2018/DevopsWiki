@@ -1,0 +1,14 @@
+One of the Web Server started with 8 GB of EBS volume but later it need to be increased to 15 GB.
+
+Steps to increase the space:
+a. First we need to increase/modify the EBS volume through console. It can be done online, that means no need to stop the
+instance.
+
+b. Then we need to connect to the server through SSH, and check the added space through lsblk.
+
+c.  sudo mount -o size=10M,rw,nodev,nosuid -t tmpfs tmpfs /tmp. 
+This will mount the temporary file system tmpfs to the /tmp mount point. This creates a 10 M tmpfs mounted to /tmp.
+
+d.  sudo growpart /dev/DEVICE_ID PARTITION_NUMBER (make sure there is a space between DEVICE_ID_PARTITION and PARTITION_NUMBER)
+e. sudo resize2fs /dev/DEVICE_IDPARTITION_NUMBER
+f. sudo umount /tmp 
